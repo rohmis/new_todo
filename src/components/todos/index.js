@@ -1,5 +1,4 @@
 import React from "react";
-import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 
 const index = () => {
@@ -11,7 +10,6 @@ const index = () => {
 
   return (
     <>
-      <TodoForm />
       <TodoList todoData={todoData} />
     </>
   );
