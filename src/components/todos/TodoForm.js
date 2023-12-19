@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState ,useEffect} from "react";
 import Headers from "../ui/Headers";
 import Button from "../ui/Button";
+
 
 const TodoForm = ({ onAdd, editData }) => {
   const initialFields = {
@@ -9,29 +10,24 @@ const TodoForm = ({ onAdd, editData }) => {
     status: "pending",
   };
 
-  const [todoFields, setTodoFields] = useState(initialFields);
+  const [todoFields, setTodoFields] = useState(
+    editData ? editData : initialFields
+  );
 
-  // useEffect(() => {
-  //   if (editData) {
-  //     // If there's data for editing, populate the fields with the editData
-  //     setTodoFields(editData);
-  //   } else {
-  //     // If there's no data for editing, reset the fields to initial values
-  //     setTodoFields(initialFields);
-  //   }
-  // }, [editData, initialFields]);
+  // Update the fields when editData changes
+  useEffect(() => {
+    if (editData) {
+      setTodoFields(editData);
+    }
+  }, [editData]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (editData) {
-      // Handle update logic here
-      onAdd(todoFields); // Assuming onAdd is a function to update a todo
+      onAdd(todoFields); // Handle update logic
     } else {
-      // Handle add logic here
-      onAdd({ ...todoFields, id: Math.floor(Math.random() * 1000) }); // Assuming onAdd is a function to add a new todo
+      onAdd({ ...todoFields, id: Math.floor(Math.random() * 1000) }); // Handle add logic
     }
-
-    // Resetting form fields after submission
     setTodoFields(initialFields);
   };
 
@@ -39,6 +35,7 @@ const TodoForm = ({ onAdd, editData }) => {
     const { id, value } = e.target;
     setTodoFields({ ...todoFields, [id]: value });
   };
+
 
   return (
     <div className="container">
